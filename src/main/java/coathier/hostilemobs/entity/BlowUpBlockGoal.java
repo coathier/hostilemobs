@@ -33,7 +33,7 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
     public boolean canStart() {
         // This goal is active on nights every 7 days.
         return //this.mob.getWorld().isNight() &&
-            //daysPassed(this.mob.getWorld().getTime()) % 7 == 0 &&
+            //(daysPassed(this.mob.getWorld().getTime())) % 7 == 0 &&
             super.canStart();
     }
 
@@ -58,7 +58,10 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
 
     protected boolean isTargetPos(WorldView world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
-        return blockState.isOf(Blocks.DIAMOND_BLOCK);
+        if (blockState.isOf(Blocks.FURNACE)) {
+            return blockState.get(FurnaceBlock.LIT);
+        }
+        return false;
     }
 
     public void tick() {
