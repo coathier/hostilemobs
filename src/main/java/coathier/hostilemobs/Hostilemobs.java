@@ -2,7 +2,10 @@ package coathier.hostilemobs;
 
 import coathier.hostilemobs.entity.Titan;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+import me.shedaniel.autoconfig.AutoConfig;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityDimensions;
@@ -24,6 +27,7 @@ public class Hostilemobs implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		AutoConfig.register(HostileMobsConfig.class, Toml4jConfigSerializer::new);
     Registry.register(Registries.ENTITY_TYPE, new Identifier(MOD_ID, "titan"), TITAN);
 	}
 }

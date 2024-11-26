@@ -1,5 +1,9 @@
 package coathier.hostilemobs.entity;
 
+import me.shedaniel.autoconfig.AutoConfig;
+
+import coathier.hostilemobs.HostileMobsConfig;
+import coathier.hostilemobs.Util;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -11,29 +15,25 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class BlowUpBlockGoal extends MoveToTargetPosGoal {
-    private static final int BLOW_UP_TIME = 40;
+    private static final int BLOW_UP_TIME = 60;
     protected int timer;
 
-    private static final int SAME_POS_MAX_RESETS = 3;
+    // private static final int SAME_POS_MAX_RESETS = 5;
+
     @Nullable
     protected Vec3d lastResetPosition;
     protected int resetsInSamePos;
+
+    private static final HostileMobsConfig config = AutoConfig.getConfigHolder(HostileMobsConfig.class).getConfig();
 
     public BlowUpBlockGoal(PathAwareEntity mob, double speed, int range, int maxYDifference) {
         super(mob, speed, range, maxYDifference);
     }
 
-    public int daysPassed(long time) {
-        final long DAY_TICKS = 24000;
-        final long TICKS_PASSED = time - time % DAY_TICKS;
-        return (int)(TICKS_PASSED / DAY_TICKS);
-    }
-
     @Override
     public boolean canStart() {
-        // This goal is active on nights every 7 days.
-        return //this.mob.getWorld().isNight() &&
-            //(daysPassed(this.mob.getWorld().getTime())) % 7 == 0 &&
+       long daysPassed = Util.daysPassed(this.mob.getWorld().getTimeOfDay());
+        return  daysPassed % config.activeNthDay == 0 &&
             super.canStart();
     }
 
@@ -43,12 +43,14 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
         if (trying) {
             if (lastResetPosition != null && lastResetPosition.distanceTo(this.mob.getPos()) < 5.0D) {
                 resetsInSamePos++;
-                this.mob.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 1.0F);
+                // Change the pitch of the sound as it it closer to exploding.
+                float intensity = 1.0F / (float)config.triesBeforeBlowingUp * (float)resetsInSamePos;
+                this.mob.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, intensity + 0.5F, intensity);
             } else {
                 resetsInSamePos = 0;
                 lastResetPosition = this.mob.getPos();
             }
-            if (resetsInSamePos >= SAME_POS_MAX_RESETS) {
+            if (resetsInSamePos >= config.triesBeforeBlowingUp) {
                 this.explode();
             }
         }
@@ -81,12 +83,14 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
         if (!this.mob.getWorld().isClient) {
             this.mob.getWorld().createExplosion(this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), 3.0f, World.ExplosionSourceType.MOB);
             // Killing the entity is probably not the right way to do it, if compared to creeper example. This could mean that it drops items etc.
-            this.mob.kill();
+            this.mob.discard();
         }
     }
 
     public void start() {
         this.timer = 0;
+        this.resetsInSamePos = 0;
+        this.lastResetPosition = null;
         super.start();
     }
 }

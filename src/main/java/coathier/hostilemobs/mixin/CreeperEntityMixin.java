@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CreeperEntity.class)
-public abstract class ExampleMixin extends HostileEntity implements SkinOverlayOwner {
-	public ExampleMixin(EntityType<? extends CreeperEntity> type, World world) {
+public abstract class CreeperEntityMixin extends HostileEntity implements SkinOverlayOwner {
+	public CreeperEntityMixin(EntityType<? extends CreeperEntity> type, World world) {
 		super(type, world);
 	}
 

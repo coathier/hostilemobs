@@ -3,7 +3,9 @@
 	"package": "coathier.hostilemobs.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"CreeperEntityMixin",
+		"ZombieEntityMixin",
+		"SkeletonEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
