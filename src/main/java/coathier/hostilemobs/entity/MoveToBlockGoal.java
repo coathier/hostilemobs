@@ -1,6 +1,10 @@
 package coathier.hostilemobs.entity;
 
 import me.shedaniel.autoconfig.AutoConfig;
+
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.kinetics.simpleRelays.CogWheelBlock;
+
 import coathier.hostilemobs.HostileMobsConfig;
 import coathier.hostilemobs.Util;
 
@@ -36,8 +40,13 @@ public class MoveToBlockGoal extends MoveToTargetPosGoal {
         BlockState blockState = world.getBlockState(pos);
         if (blockState.isOf(Blocks.CHEST)) {
             return ChestBlockEntity.getPlayersLookingInChestCount(world, pos) > 0;
-        } else {
-            return blockState.isOf(Blocks.FURNACE) && (Boolean)blockState.get(FurnaceBlock.LIT);
+        } else if (blockState.isOf(Blocks.FURNACE)) {
+            return (boolean)blockState.get(FurnaceBlock.LIT);
+        } else if (blockState.isOf(AllBlocks.COGWHEEL.get())) {
+            if (blockState.getBlock() instanceof CogWheelBlock cogWheelBlock) {
+                return cogWheelBlock.getBlockEntity(world, pos).getSpeed() > 0.1f;
+            }
         }
+        return false;
     }
 }
