@@ -18,6 +18,11 @@ repositories {
 	// for more information about repositories.
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases/" }
+	maven { url = "https://mvn.devos.one/snapshots/" }
+	maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
+	maven { url = "https://maven.jamieswhiteshirt.com/libs-release" }
+	maven { url = "https://jitpack.io/" }
+	maven { url = "https://maven.tterrag.com/" }
 }
 
 loom {
@@ -43,7 +48,10 @@ dependencies {
 
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
     exclude(group: "net.fabricmc.fabric-api")
-  }
+	}
+
+	modImplementation("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}")
+	modApi("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}")
 }
 
 processResources {
