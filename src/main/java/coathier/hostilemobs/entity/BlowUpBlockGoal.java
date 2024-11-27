@@ -62,8 +62,9 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
         BlockState blockState = world.getBlockState(pos);
         if (blockState.isOf(Blocks.FURNACE)) {
             return blockState.get(FurnaceBlock.LIT);
+        } else {
+            return Util.isRotatingBlock(world, blockState, pos);
         }
-        return false;
     }
 
     public void tick() {
