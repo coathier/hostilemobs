@@ -1,5 +1,6 @@
 package coathier.hostilemobs.mixin;
 
+import coathier.hostilemobs.Hostilemobs;
 import coathier.hostilemobs.entity.MoveToBlockGoal;
 import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.EntityType;
@@ -20,6 +21,6 @@ public abstract class ZombieEntityMixin extends HostileEntity implements SkinOve
 
 	@Inject(at = @At("HEAD"), method = "initGoals()V")
 	public void injectGoal(CallbackInfo ci) {
-    this.goalSelector.add(3, new MoveToBlockGoal(this, 1.0, 50, 10));
+    this.goalSelector.add(3, new MoveToBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
 	}
 }

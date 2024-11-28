@@ -1,8 +1,6 @@
 package coathier.hostilemobs.entity;
 
-import me.shedaniel.autoconfig.AutoConfig;
-
-import coathier.hostilemobs.HostileMobsConfig;
+import coathier.hostilemobs.Hostilemobs;
 import coathier.hostilemobs.Util;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
@@ -24,8 +22,6 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
     protected Vec3d lastResetPosition;
     protected int resetsInSamePos;
 
-    private static final HostileMobsConfig config = AutoConfig.getConfigHolder(HostileMobsConfig.class).getConfig();
-
     public BlowUpBlockGoal(PathAwareEntity mob, double speed, int range, int maxYDifference) {
         super(mob, speed, range, maxYDifference);
     }
@@ -33,7 +29,7 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
     @Override
     public boolean canStart() {
        long daysPassed = Util.daysPassed(this.mob.getWorld().getTimeOfDay());
-        return  daysPassed % config.activeNthDay == 0 &&
+        return  daysPassed % Hostilemobs.config.activeNthDay == 0 &&
             super.canStart();
     }
 
@@ -44,13 +40,13 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
             if (lastResetPosition != null && lastResetPosition.distanceTo(this.mob.getPos()) < 5.0D) {
                 resetsInSamePos++;
                 // Change the pitch of the sound as it it closer to exploding.
-                float intensity = 1.0F / (float)config.triesBeforeBlowingUp * (float)resetsInSamePos;
+                float intensity = 1.0F / (float)Hostilemobs.config.triesBeforeBlowingUp * (float)resetsInSamePos;
                 this.mob.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, intensity + 0.5F, intensity);
             } else {
                 resetsInSamePos = 0;
                 lastResetPosition = this.mob.getPos();
             }
-            if (resetsInSamePos >= config.triesBeforeBlowingUp) {
+            if (resetsInSamePos >= Hostilemobs.config.triesBeforeBlowingUp) {
                 this.explode();
             }
         }

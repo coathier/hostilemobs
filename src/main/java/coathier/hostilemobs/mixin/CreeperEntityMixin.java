@@ -1,5 +1,6 @@
 package coathier.hostilemobs.mixin;
 
+import coathier.hostilemobs.Hostilemobs;
 import coathier.hostilemobs.entity.BlowUpBlockGoal;
 import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.EntityType;
@@ -20,6 +21,6 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
 
 	@Inject(at = @At("HEAD"), method = "initGoals()V")
 	public void injectGoal(CallbackInfo ci) {
-    this.goalSelector.add(3, new BlowUpBlockGoal(this, 1.0, 50, 10));
+    this.goalSelector.add(3, new BlowUpBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
 	}
 }

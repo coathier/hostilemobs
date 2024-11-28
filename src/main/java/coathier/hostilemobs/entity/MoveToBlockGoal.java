@@ -1,8 +1,6 @@
 package coathier.hostilemobs.entity;
 
-import me.shedaniel.autoconfig.AutoConfig;
-
-import coathier.hostilemobs.HostileMobsConfig;
+import coathier.hostilemobs.Hostilemobs;
 import coathier.hostilemobs.Util;
 
 import net.minecraft.block.BlockState;
@@ -15,8 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 
 public class MoveToBlockGoal extends MoveToTargetPosGoal {
-    private static final HostileMobsConfig config = AutoConfig.getConfigHolder(HostileMobsConfig.class).getConfig();
-
     @Override
     public double getDesiredDistanceToTarget() {
         return 5.0;
@@ -25,7 +21,7 @@ public class MoveToBlockGoal extends MoveToTargetPosGoal {
     @Override
     public boolean canStart() {
         long daysPassed = Util.daysPassed(this.mob.getWorld().getTimeOfDay());
-        return  daysPassed % config.activeNthDay == 0 &&
+        return  daysPassed % Hostilemobs.config.activeNthDay == 0 &&
             super.canStart();
     }
 
