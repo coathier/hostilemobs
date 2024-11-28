@@ -21,6 +21,7 @@ public class MoveToBlockGoal extends MoveToTargetPosGoal {
     @Override
     public boolean canStart() {
         long daysPassed = Util.daysPassed(this.mob.getWorld().getTimeOfDay());
+        if (daysPassed == 0 && Hostilemobs.config.activeNthDay != 1) return false;
         return  daysPassed % Hostilemobs.config.activeNthDay == 0 &&
             super.canStart();
     }

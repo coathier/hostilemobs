@@ -16,8 +16,6 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
     private static final int BLOW_UP_TIME = 60;
     protected int timer;
 
-    // private static final int SAME_POS_MAX_RESETS = 5;
-
     @Nullable
     protected Vec3d lastResetPosition;
     protected int resetsInSamePos;
@@ -28,8 +26,9 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
 
     @Override
     public boolean canStart() {
-       long daysPassed = Util.daysPassed(this.mob.getWorld().getTimeOfDay());
-        return  daysPassed % Hostilemobs.config.activeNthDay == 0 &&
+        long daysPassed = Util.daysPassed(this.mob.getWorld().getTimeOfDay());
+        if (daysPassed == 0 && Hostilemobs.config.activeNthDay != 1) return false;
+        return daysPassed % Hostilemobs.config.activeNthDay == 0 &&
             super.canStart();
     }
 
@@ -79,7 +78,6 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
     private void explode() {
         if (!this.mob.getWorld().isClient) {
             this.mob.getWorld().createExplosion(this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), 3.0f, World.ExplosionSourceType.MOB);
-            // Killing the entity is probably not the right way to do it, if compared to creeper example. This could mean that it drops items etc.
             this.mob.discard();
         }
     }
