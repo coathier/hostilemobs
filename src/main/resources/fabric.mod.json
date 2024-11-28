@@ -3,9 +3,9 @@
 	"id": "hostilemobs",
 	"version": "${version}",
 	"name": "hostilemobs",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Hostile mobs hear and attack blocks that are active",
 	"authors": [
-		"Me!"
+		"coathier"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
