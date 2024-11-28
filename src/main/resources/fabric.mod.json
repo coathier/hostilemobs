@@ -18,16 +18,10 @@
 		"main": [
 			"coathier.hostilemobs.Hostilemobs"
 		],
-		"client": [
-			"coathier.hostilemobs.HostilemobsClient"
-		]
+		"client": []
 	},
 	"mixins": [
-		"hostilemobs.mixins.json",
-		{
-			"config": "hostilemobs.client.mixins.json",
-			"environment": "client"
-		}
+		"hostilemobs.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.9",
