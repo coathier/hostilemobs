@@ -21,6 +21,6 @@ public abstract class ZombieEntityMixin extends HostileEntity implements SkinOve
 
 	@Inject(at = @At("HEAD"), method = "initGoals()V")
 	public void injectGoal(CallbackInfo ci) {
-    this.goalSelector.add(3, new MoveToBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
+    this.goalSelector.add(4, new MoveToBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
 	}
 }

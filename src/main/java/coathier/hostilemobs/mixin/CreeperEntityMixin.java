@@ -21,6 +21,6 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
 
 	@Inject(at = @At("HEAD"), method = "initGoals()V")
 	public void injectGoal(CallbackInfo ci) {
-    this.goalSelector.add(3, new BlowUpBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
+    this.goalSelector.add(5, new BlowUpBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
 	}
 }

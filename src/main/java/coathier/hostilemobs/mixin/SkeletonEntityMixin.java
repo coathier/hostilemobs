@@ -21,6 +21,6 @@ public abstract class SkeletonEntityMixin extends HostileEntity implements SkinO
 
 	@Inject(at = @At("HEAD"), method = "initGoals()V")
 	public void injectGoal(CallbackInfo ci) {
-    this.goalSelector.add(3, new MoveToBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
+    this.goalSelector.add(5, new MoveToBlockGoal(this, 1.0, Hostilemobs.config.detectionDistance, 10));
 	}
 }
