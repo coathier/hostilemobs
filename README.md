@@ -3,7 +3,7 @@ This server side mod increases the hostility of mobs by making them detect "soun
 
 Creeper will also blow up walls in order to get to and destroy these blocks, there's a long timer before they blow up and they make sounds in the mean while.
 
-If the Create mod is loaded mobs will also detects spinning components and they will flock toward them.
+If the [Create](https://github.com/Fabricators-of-Create/Create) mod is loaded mobs will also detects spinning components and they will flock toward them.
 
 Here's a list of the configuration options that can be found in the `hostilemobs.toml` file within the configuration directory.
 | Name                 | Value  | Description                                                                                                                                                |
