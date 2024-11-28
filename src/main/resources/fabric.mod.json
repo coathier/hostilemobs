@@ -28,5 +28,5 @@
 		"java": ">=17",
 		"fabric-api": "*",
 		"cloth-config": "11.1.136"
-	},
+	}
 }

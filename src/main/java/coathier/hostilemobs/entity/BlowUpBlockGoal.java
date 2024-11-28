@@ -63,7 +63,6 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
     }
 
     public void tick() {
-
         if (this.hasReached()) {
             if (this.timer >= BLOW_UP_TIME) {
                 this.explode();
@@ -76,7 +75,8 @@ public class BlowUpBlockGoal extends MoveToTargetPosGoal {
     }
 
     private void explode() {
-        if (!this.mob.getWorld().isClient) {
+        World world = this.mob.getWorld();
+        if (!world.isClient) {
             this.mob.getWorld().createExplosion(this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), 3.0f, World.ExplosionSourceType.MOB);
             this.mob.discard();
         }
