@@ -3,7 +3,7 @@ package coathier.hostilemobs;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 
-@Config(name="scalingmobs")
+@Config(name="hostilemobs")
 public class HostileMobsConfig implements ConfigData {
   public int activeNthDay = 7;
 
